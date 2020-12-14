@@ -1,0 +1,40 @@
+{% extends 'groups/group_base.html' %}
+{% block pregroup %}
+
+<h1>{{group.name}}</h1>
+{% comment %} from the context dictionary that holds everything that the model (Group) has {% endcomment %}
+{% comment %} Group had names, so name can be used here {% endcomment %}
+{% comment %} It is the lower cased singular version of the model {% endcomment %}
+<h2>Member Count: {{group.members.count }}</h2>
+
+<div class="content">
+
+    {% if user in group.members.all %}
+
+    <a href="{% url 'groups:leave' slug=group.slug %}" class='btn btn-lg btn-fill btn-warning'>LEAVE</a>
+
+    {% else %}
+    <a href="{% url 'groups:join' slug=group.slug %}" class='btn btn-lg btn-fill btn-warning'>JOIN</a>
+
+    {% endif %}
+
+</div>
+
+{% endblock pregroup %}
+
+
+{% block group_content %}
+
+<div class="col-md-8">
+    {% if group.posts.count ==0 %}
+    <h2>No posts in this group yet!</h2>
+    {% else %}
+    {% for post in group.posts.all %}
+    {% include 'posts/_post.html' %}
+    {% comment %} The _ is to identify that it is injected. It is not mandatory {% endcomment %}
+    {% endfor %}
+
+    {% endif %}
+</div>
+
+{% endblock group_content %}
