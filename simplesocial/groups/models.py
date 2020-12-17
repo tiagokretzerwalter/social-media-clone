@@ -3,6 +3,8 @@ from django.utils.text import slugify
 # Create your models here.
 import misaka
 
+from django.urls import reverse
+
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -31,8 +33,8 @@ class Group(models.Model):
         ordering = ['name']
 
 class GroupMember(models.Model):
-    group = models.ForeignKey(Group, related_name='membership')
-    user = models.ForeignKey(User, related_name='user_groups')
+    group = models.ForeignKey(Group, related_name='membership', on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, related_name='user_groups', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.user.username

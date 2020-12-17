@@ -3,10 +3,11 @@ from django.contrib import messages
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.views import generic
 from django.shortcuts import get_object_or_404
 from groups.models import Group,GroupMember
+from . import models
 
 # Create your views here.
 
